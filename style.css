@@ -21,3 +21,30 @@ footer{padding-bottom:calc(25px + var(--bar-h))}
 @media(max-width:820px){.bar-long{display:none}.bar-short{display:inline}}
 @media(max-width:640px){:root{--bar-h:68px}.cta-bar{gap:12px;padding:10px 4%}.cta-bar p{font-size:12px}.line-add img{height:32px}.line-card{padding:26px 20px;margin-top:26px}.closing .lc-h{font-size:17px}.closing .lc-t{font-size:13px}}
 @media(prefers-reduced-motion:reduce){.cta-bar{transition:none}}
+
+/* ── 小型スマホ(320px)対応：意図した改行位置を保つ ──
+   各<br>行を折り返さず実測し、収まる文字サイズをclamp()で指定。
+   併せて左右余白を詰めて横幅を稼ぐ。 */
+@media(max-width:800px){
+  .wrap{padding:0 18px}
+  .hero h1{font-size:clamp(33px,11.2vw,63px)}
+  h2{font-size:clamp(22px,6.9vw,45px)}
+  .pivot h2{font-size:clamp(24px,7.6vw,52px)}
+  .belief h2{font-size:clamp(23px,7.1vw,58px)}
+  .closing{padding:64px 12px}
+  .closing h2{font-size:clamp(19px,6vw,50px)}
+  /* 残りの折り返しは文節単位で切る（対応ブラウザのみ・非対応でも従来どおり） */
+  h1,h2,h3,p,.tag,.lc-h,.lc-t,.cta-bar p{word-break:auto-phrase}
+  /* auto-phrase非対応(iOS Safari)でも語中で切らせない指定 */
+  .nb{display:inline-block}
+}
+@media(max-width:480px){
+  /* 番号を上に逃がして見出しに全幅を与える */
+  .solution{grid-template-columns:1fr;gap:8px}
+  .solution>p{grid-column:auto}
+  .solution h3{font-size:clamp(20px,6.3vw,26px)}
+  .num{font-size:24px}
+}
+@media(max-width:380px){
+  .hero h1{font-size:clamp(33px,11.2vw,63px)}
+}
