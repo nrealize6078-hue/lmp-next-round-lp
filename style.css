@@ -39,6 +39,9 @@ footer{padding-bottom:calc(25px + var(--bar-h))}
   .nb{display:inline-block}
 }
 @media(max-width:480px){
+  /* flowカード：見出しを1行に収める */
+  .flow article{padding:18px 14px}
+  .flow h3{font-size:clamp(16px,4.9vw,21px)}
   /* 番号を上に逃がして見出しに全幅を与える */
   .solution{grid-template-columns:1fr;gap:8px}
   .solution>p{grid-column:auto}

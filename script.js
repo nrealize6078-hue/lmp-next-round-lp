@@ -6,3 +6,21 @@ document.querySelectorAll('.line-add').forEach(box=>{const img=box.querySelector
 /* 固定ボトムバー：ヒーローを過ぎたら出す */
 const bar=document.getElementById('cta-bar'),hero=document.querySelector('.hero');
 if(bar&&hero){const show=v=>bar.classList.toggle('is-visible',v);if('IntersectionObserver'in window){new IntersectionObserver(([e])=>show(!e.isIntersecting),{threshold:0}).observe(hero);}else{show(true);}}
+
+/* 日本語の改行を文節単位にする（BudouX同梱の<budoux-ja>要素を使う）。
+   word-break:auto-phrase は Chrome系のみ対応のため、iOS Safari を含む全ブラウザ向けにこちらで処理する。 */
+(function(){
+  var apply=function(){
+    if(!(window.customElements&&customElements.get('budoux-ja'))) return;
+    var sel='h1,h2,h3,p,summary,.tag,.row span,.row strong,.step';
+    document.querySelectorAll(sel).forEach(function(el){
+      if(el.classList.contains('eyebrow')||el.classList.contains('badge')||el.classList.contains('fight-label')) return;
+      if(el.querySelector('budoux-ja')) return;
+      if(!/[ぁ-んァ-ヶ一-龠]/.test(el.textContent)) return;   // 英字だけの要素は対象外
+      var w=document.createElement('budoux-ja');
+      while(el.firstChild) w.appendChild(el.firstChild);
+      el.appendChild(w);
+    });
+  };
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',apply); else apply();
+})();
